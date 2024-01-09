@@ -16,7 +16,7 @@ import uuid from './uuid.js'
 
 export function handleSummary(data) {
     return {
-        'report_stress.html': htmlReport(data),
+        'index.html': htmlReport(data),
     }
 }
 
