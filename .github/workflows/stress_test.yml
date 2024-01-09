@@ -1,0 +1,27 @@
+name: Test stress k6
+on: [push]
+permissions:
+  contents: write
+jobs:
+  build:
+    name: Run k6 test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run k6 local test
+        uses: grafana/k6-action@v0.3.1
+        with:
+          filename: scripts/tests_stress.js
+      - run: ls & mkdir report & mv report_stress.html report
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+             name: report stress
+             path: report
+      - name: publish report
+        uses: peaceiris/actions-gh-pages@v3
+        with: 
+             github_token: ${{ secrets.GITHUB_TOKEN }}
+             publish_branch: stress.github.io
+             publish_dir: report/report_stress.html

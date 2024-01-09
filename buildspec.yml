@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  pre_build:
+    comands:
+    - echo Pull loadimpact/k6 image..
+    - docker pull loadimpact/k6
+  build:
+    commands:
+    - echo Run k6 tests..
+    - docker run -i loadimpact/k6 run - <scripts/tests_smoke.js
+  post_build:
+    commands:
+    - echo Tests completed on `date`
